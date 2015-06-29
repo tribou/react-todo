@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Todo App</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+
+</head>
+<body style="font-family: 'Varela Round', sans-serif;">
+  <div id="app">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          <button type="button" class="btn btn-default btn-block btn-lg">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+          <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>First thing I need to do...</td>
+                <td>
+                  <button type="button" id="remove" index=0 class="btn btn-link pull-right">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="text" id="newItem" placeholder="Add new todo..." /></td>
+                <td>
+                  <button type="button" id="add" index=1 class="btn btn-link pull-right">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
