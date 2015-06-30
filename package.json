@@ -1,0 +1,39 @@
+{
+  "name": "react-todo",
+  "version": "1.0.0",
+  "description": "Another basic todo app in React and Flux",
+  "main": "js/app.js",
+  "dependencies": {
+    "flux": "^2.0.3",
+    "object-assign": "^3.0.0",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "envify": "^3.4.0",
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.4.23",
+    "watchify": "^3.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "watchify -o js/bundle.js -v -d js/components/Index.jsx",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tribou/react-todo.git"
+  },
+  "author": "tribou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tribou/react-todo/issues"
+  },
+  "homepage": "https://github.com/tribou/react-todo#readme"
+}

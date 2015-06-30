@@ -3,8 +3,8 @@
 // Requiring the Dispatcher, Constants, and
 // event emitter dependencies
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AppConstants = require('../constants/AppConstants');
-var ObjectAssign = require('react/lib/Object.assign');
+var AppConstants = require('../constants/TodoConstants');
+var ObjectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
