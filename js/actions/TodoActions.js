@@ -4,17 +4,24 @@ var TodoConstants = require('../constants/TodoConstants');
 
 module.exports = {
 
-  addItem: function(item) {
+  addItem: function() {
     AppDispatcher.handleViewAction({
-      actionType: TodoConstants.ADD_ITEM,
-      data: item
+      actionType: TodoConstants.NEW_ITEM
     });
   },
 
-  removeItem: function(item) {
+  saveItem: function(text, index) {
+    AppDispatcher.handleViewAction({
+      actionType: TodoConstants.SAVE_ITEM,
+      text: text,
+      index: index
+    });
+  },
+
+  removeItem: function(index) {
     AppDispatcher.handleViewAction({
       actionType: TodoConstants.REMOVE_ITEM,
-      data: item
+      index: index
     });
   }
 

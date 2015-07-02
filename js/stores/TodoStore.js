@@ -42,19 +42,38 @@ AppDispatcher.register(function(payload) {
 
   switch(action.actionType) {
 
-    case AppConstants.ADD_ITEM:
+    case AppConstants.NEW_ITEM:
 
       // Add the data defined in the TodoActions
       // which the View will pass as a payload
-      _store.list.push(action.data);
+      _store.list.push({
+        text: '',
+        editing: true
+      });
       TodoStore.emit(CHANGE_EVENT);
       break;
 
-    case AppConstants.REMOVE_ITEM:
+    case AppConstants.SAVE_ITEM:
+
+      // Add the data defined in the TodoActions
+      // which the View will pass as a payload
+
+      if(_store.list) {
+        _store.list.map(function(item, index) {
+          if(index === action.index) {
+            item[editing] = false;
+            item[text] = action.text;
+          }
+        });
+      }
+      TodoStore.emit(CHANGE_EVENT);
+      break;
+
+   case AppConstants.REMOVE_ITEM:
 
       // View should pass the item's index that
       // needs to be removed from the store
-      _store.list.splice(action.data, 1);
+      _store.list.splice(action.index, 1);
       TodoStore.emit(CHANGE_EVENT);
       break;
 
