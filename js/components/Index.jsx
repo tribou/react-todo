@@ -3,72 +3,95 @@ var React = require('react');
 var TodoStore = require('../stores/TodoStore.js');
 var TodoActions = require('../actions/TodoActions.js');
 
-var ItemRow = React.createClass({
+var TodoItem = React.createClass({
+
+  render: function() {
+
+    return(
+      <tr>
+        <td>{this.props.item}</td>
+        <td>
+          <button type="button" onClick={this._delete} className="btn btn-link pull-right">
+            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    )
+  },
+
+  _delete: function() {
+    console.log('Deleting item key: ' + this.props.index);
+    TodoActions.removeItem(this.props.index);
+  }
+});
+
+
+var EditTodo = React.createClass({
 
   getInitialState: function() {
 
     return {
       text: ''
-    };
+    }
   },
 
   render: function() {
 
-
-    if (this.props.item.editing) {
-
-      return(
-        <tr>
-          <td><input type="text" id="txtItem" onKeyDown={this._catchEnter} placeholder="Add new todo..." /></td>
-          <td>
-            <button type="button" id="remove" index={this.props.key}
-              onClick={this._save(document.getElementById('txtItem'), this.props.key)} className="btn btn-link pull-right">
-              <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
-          </td>
-        </tr>
-      )
-    } else {
-
-      return(
-        <tr>
-          <td>{this.props.item.text}</td>
-          <td>
-            <button type="button" onClick={this._delete} className="btn btn-link pull-right">
-              <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
-          </td>
-        </tr>
-      )
-    }
+    return(
+      <tr>
+        <td><input
+            type="text"
+            value={this.state.text}
+            onChange={this._onChange}
+            onKeyDown={this._catchEnter}
+            placeholder="Add new todo..."
+            className="form-control"
+            autoFocus={true}
+          /></td>
+        <td>
+          <button type="button"
+            onClick={this._save}
+            className="btn btn-link pull-right">
+            <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    )
   },
 
-  _save: function(value, index) {
-    TodoActions.saveItem(value, index);
+  _onChange: function(e) {
+    this.setState({
+      text: e.target.value
+    });
   },
 
-  _delete: function() {
-    TodoActions.removeItem(this.props.key);
+  _save: function() {
+    TodoActions.saveItem(this.state.text);
   },
 
   _catchEnter: function(e) {
     if(e.keyCode === 13) {
-      this._save(e.target.value, this.props.key);
+      this._save();
     }
   }
+
 
 });
 
 
-var ItemTable = React.createClass({
+var TodoList = React.createClass({
 
   render: function() {
 
     var rows = [];
     if(this.props.list) {
       this.props.list.map(function(item, index) {
-        rows.push(<ItemRow key={index} item={item} />);
+        rows.push(<TodoItem key={index} index={index} item={item} />);
       });
+    }
+
+    if(this.props.editing) {
+      rows.push(<EditTodo key={-1} />);
     }
 
     return(
@@ -84,11 +107,11 @@ var ItemTable = React.createClass({
 });
 
 
-var AddItem = React.createClass({
+var AddTodo = React.createClass({
 
   render: function() {
     return(
-      <button type="button" onClick={this._add} className="btn btn-default btn-block btn-lg">
+      <button type="button" onClick={this._add} className="btn btn-link btn-block btn-lg">
         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </button>
     )
@@ -99,12 +122,11 @@ var AddItem = React.createClass({
   }
 });
 
-var TodoTable = React.createClass({
+
+var TodoApp = React.createClass({
 
   getInitialState: function() {
-    return {
-      list: TodoStore.getList()
-    }
+    return TodoStore.getList();
   },
 
   componentDidMount: function() {
@@ -116,9 +138,7 @@ var TodoTable = React.createClass({
   },
 
   _onChange: function() {
-    this.setState({
-        list: TodoStore.getList()
-    });
+    this.setState(TodoStore.getList());
   },
 
   render: function() {
@@ -126,8 +146,14 @@ var TodoTable = React.createClass({
       <div className="container">
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-sm-offset-3">
-          <AddItem />
-          <ItemTable list={this.state.list} />
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <AddTodo />
+            </div>
+            <div className="panel-body">
+              <TodoList list={this.state.list} editing={this.state.editing} />
+            </div>
+          </div>
         </div>
       </div>
       </div>
@@ -136,7 +162,7 @@ var TodoTable = React.createClass({
 });
 
 React.render(
-  <TodoTable />
+  <TodoApp />
   , document.getElementById('app')
 );
 

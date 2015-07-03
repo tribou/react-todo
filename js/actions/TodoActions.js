@@ -10,11 +10,10 @@ module.exports = {
     });
   },
 
-  saveItem: function(text, index) {
+  saveItem: function(text) {
     AppDispatcher.handleViewAction({
       actionType: TodoConstants.SAVE_ITEM,
-      text: text,
-      index: index
+      text: text
     });
   },
 

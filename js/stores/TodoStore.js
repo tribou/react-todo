@@ -11,7 +11,8 @@ var CHANGE_EVENT = 'change';
 
 // Define the store as an empty array
 var _store = {
-  list: []
+  list: [],
+  editing: false
 };
 
 // Define the public event listeners and getters that
@@ -28,7 +29,7 @@ var TodoStore = ObjectAssign( {}, EventEmitter.prototype, {
   },
 
   getList: function() {
-    return _store.list;
+    return _store;
   }
 
 });
@@ -46,10 +47,7 @@ AppDispatcher.register(function(payload) {
 
       // Add the data defined in the TodoActions
       // which the View will pass as a payload
-      _store.list.push({
-        text: '',
-        editing: true
-      });
+      _store.editing = true;
       TodoStore.emit(CHANGE_EVENT);
       break;
 
@@ -57,21 +55,14 @@ AppDispatcher.register(function(payload) {
 
       // Add the data defined in the TodoActions
       // which the View will pass as a payload
-
-      if(_store.list) {
-        _store.list.map(function(item, index) {
-          if(index === action.index) {
-            item[editing] = false;
-            item[text] = action.text;
-          }
-        });
-      }
+      _store.list.push(action.text);
+      _store.editing = false;
       TodoStore.emit(CHANGE_EVENT);
       break;
 
    case AppConstants.REMOVE_ITEM:
 
-      // View should pass the item's index that
+      // View should pass the text's index that
       // needs to be removed from the store
       _store.list.splice(action.index, 1);
       TodoStore.emit(CHANGE_EVENT);
