@@ -60,11 +60,24 @@ AppDispatcher.register(function(payload) {
       TodoStore.emit(CHANGE_EVENT);
       break;
 
-   case AppConstants.REMOVE_ITEM:
+    case AppConstants.REMOVE_ITEM:
 
       // View should pass the text's index that
       // needs to be removed from the store
       _store.list.splice(action.index, 1);
+      TodoStore.emit(CHANGE_EVENT);
+      break;
+
+    case AppConstants.GET_RANDOM_RESPONSE:
+
+      // Construct the new todo string
+      var newTodo = 'Call '
+        + action.response.results[0].user.name.first
+        + ' about real estate in '
+        + action.response.results[0].user.location.city;
+
+      // Add the new todo to the list
+      _store.list.push(newTodo);
       TodoStore.emit(CHANGE_EVENT);
       break;
 

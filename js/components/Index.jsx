@@ -111,14 +111,23 @@ var AddTodo = React.createClass({
 
   render: function() {
     return(
+      <div>
       <button type="button" onClick={this._add} className="btn btn-link btn-block btn-lg">
         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </button>
+      <button type="button" onClick={this._random} className="btn btn-link btn-block btn-lg">
+        <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Random
+      </button>
+      </div>
     )
   },
 
   _add: function() {
     TodoActions.addItem();
+  },
+
+  _random: function() {
+    TodoActions.getRandom();
   }
 });
 
