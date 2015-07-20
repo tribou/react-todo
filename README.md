@@ -1,12 +1,28 @@
 # react-todo
 Another basic todo app in React and Flux
 
-#### Quick Start
+#### Run
 
 ```
 npm install
 npm start
 ```
 
-Open the `index.html` file.
+#### Develop
+
+Webpack auto-watches client assets.
+Nodemon auto-watches server assets.
+
+```
+npm install
+npm run dev
+```
+
+#### Build
+
+Bundle the assets for production.
+
+```
+npm run build
+```
 

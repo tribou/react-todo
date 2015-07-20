@@ -20,7 +20,7 @@ var TodoItem = React.createClass({
   },
 
   _delete: function() {
-    console.log('Deleting item key: ' + this.props.index);
+
     TodoActions.removeItem(this.props.index);
   }
 });
@@ -172,6 +172,6 @@ var TodoApp = React.createClass({
 
 React.render(
   <TodoApp />
-  , document.getElementById('app')
+  , document.body
 );
 
