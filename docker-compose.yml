@@ -1,0 +1,13 @@
+web:
+  build: .
+  dockerfile: Dockerfile-dev
+  links:
+    - db
+  environment:
+    - DB_HOST=db
+  ports:
+    - '8000:8000'
+  command: npm start
+db:
+  image: mongo
+
