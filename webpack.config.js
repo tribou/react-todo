@@ -1,4 +1,6 @@
 // Webpack config file
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
 module.exports = {
   entry: './assets/js/components/Index.jsx',
   output: {
@@ -12,5 +14,10 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new BrowserSyncPlugin({
+      proxy: 'localhost:8000'
+    })
+  ]
 };
 

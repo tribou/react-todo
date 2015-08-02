@@ -95,13 +95,11 @@ var TodoList = React.createClass({
     }
 
     return(
-      <div className="table-responsive">
       <table className="table">
         <tbody>
           {rows}
         </tbody>
       </table>
-      </div>
     )
   }
 });

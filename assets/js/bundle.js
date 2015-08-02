@@ -141,12 +141,10 @@
 	    }
 
 	    return(
-	      React.createElement("div", {className: "table-responsive"}, 
 	      React.createElement("table", {className: "table"}, 
 	        React.createElement("tbody", null, 
 	          rows
 	        )
-	      )
 	      )
 	    )
 	  }
