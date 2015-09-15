@@ -14,37 +14,51 @@ server.connection({
   port: 8000
 });
 
-// Add the React-rendering view engine
-server.views({
-    engines: {
-        jsx: require('hapi-react-views')
-    },
-    relativeTo: __dirname,
-    path: 'views'
-});
+// Register the inert and vision Hapi plugins
+// As of Hapi 9.x, these two plugins are no longer
+// included in Hapi automatically
+// https://github.com/hapijs/hapi/issues/2682
+server.register([{
+  register: require('inert')
+}, {
+  register: require('vision')
+}], function(err) {
 
-// Add a route to serve static assets (CSS, JS, IMG)
-server.route({
-  method: 'GET',
-  path: '/{param*}',
-  handler: {
-    directory: {
-      path: 'assets',
-      index: ['index.html']
-    }
-  }
-});
+  if (err) return console.error(err);
 
-// Add main app route
-server.route({
-  method: 'GET',
-  path: '/',
-  handler: {
-    view: 'Default'
-  }
-});
+    // Add the React-rendering view engine
+    server.views({
+        engines: {
+            jsx: require('hapi-react-views')
+        },
+        relativeTo: __dirname,
+        path: 'views'
+    });
 
-server.start(function() {
-  console.log(dateFormat(new Date(), format) + ' - Server started at: ' + server.info.uri);
+    // Add a route to serve static assets (CSS, JS, IMG)
+    server.route({
+      method: 'GET',
+      path: '/{param*}',
+      handler: {
+        directory: {
+          path: 'assets',
+          index: ['index.html']
+        }
+      }
+    });
+
+    // Add main app route
+    server.route({
+      method: 'GET',
+      path: '/',
+      handler: {
+        view: 'Default'
+      }
+    });
+
+    server.start(function() {
+      console.log(dateFormat(new Date(), format) + ' - Server started at: ' + server.info.uri);
+    });
+
 });
 

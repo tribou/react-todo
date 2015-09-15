@@ -6,11 +6,13 @@
   "dependencies": {
     "dateformat": "^1.0.11",
     "flux": "^2.0.3",
-    "hapi": "^8.8.0",
+    "hapi": "^9.3.1",
     "hapi-react-views": "^3.0.1",
+    "inert": "^3.0.1",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
-    "superagent": "^1.2.0"
+    "superagent": "^1.2.0",
+    "vision": "^3.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
