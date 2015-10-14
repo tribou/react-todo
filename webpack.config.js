@@ -8,9 +8,19 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx$|\.js$/,
+        loader: 'eslint-loader',
+        include: __dirname + '/assets',
+        exclude: /bundle\.js$/
+      }
+    ],
     loaders: [
-      { test: /\.jsx$/,
-        loader: 'jsx-loader'
+      {
+        test: /\.jsx$|\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
   },

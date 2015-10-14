@@ -2,89 +2,92 @@
 //
 // Requiring the Dispatcher, Constants, and
 // event emitter dependencies
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AppConstants = require('../constants/TodoConstants');
-var ObjectAssign = require('object-assign');
-var EventEmitter = require('events').EventEmitter;
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import { TodoConstants } from '../constants/TodoConstants';
+import { EventEmitter } from 'events';
 
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
 // Define the store as an empty array
-var _store = {
+let _store = {
   list: [],
-  editing: false
+  editing: false,
 };
 
 // Define the public event listeners and getters that
 // the views will use to listen for changes and retrieve
 // the store
-var TodoStore = ObjectAssign( {}, EventEmitter.prototype, {
+class TodoStoreClass extends EventEmitter {
 
-  addChangeListener: function(cb) {
+  addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
-  },
+  }
 
-  removeChangeListener: function(cb) {
+  removeChangeListener(cb) {
     this.removeListener(CHANGE_EVENT, cb);
-  },
+  }
 
-  getList: function() {
+  getList() {
     return _store;
   }
 
-});
+}
+
+// Initialize the singleton to register with the
+// dispatcher and export for React components
+const TodoStore = new TodoStoreClass();
 
 // Register each of the actions with the dispatcher
 // by changing the store's data and emitting a
 // change
-AppDispatcher.register(function(payload) {
+AppDispatcher.register((payload) => {
+  const action = payload.action;
 
-  var action = payload.action;
+  switch (action.actionType) {
 
-  switch(action.actionType) {
+  case TodoConstants.NEW_ITEM:
 
-    case AppConstants.NEW_ITEM:
+    // Add the data defined in the TodoActions
+    // which the View will pass as a payload
+    _store.editing = true;
+    TodoStore.emit(CHANGE_EVENT);
+    break;
 
-      // Add the data defined in the TodoActions
-      // which the View will pass as a payload
-      _store.editing = true;
-      TodoStore.emit(CHANGE_EVENT);
-      break;
+  case TodoConstants.SAVE_ITEM:
 
-    case AppConstants.SAVE_ITEM:
+    // Add the data defined in the TodoActions
+    // which the View will pass as a payload
+    _store.list.push(action.text);
+    _store.editing = false;
+    TodoStore.emit(CHANGE_EVENT);
+    break;
 
-      // Add the data defined in the TodoActions
-      // which the View will pass as a payload
-      _store.list.push(action.text);
-      _store.editing = false;
-      TodoStore.emit(CHANGE_EVENT);
-      break;
+  case TodoConstants.REMOVE_ITEM:
 
-    case AppConstants.REMOVE_ITEM:
+    // View should pass the text's index that
+    // needs to be removed from the store
+    _store.list = _store.list.filter((item, index) => {
+      return index !== action.index;
+    });
+    TodoStore.emit(CHANGE_EVENT);
+    break;
 
-      // View should pass the text's index that
-      // needs to be removed from the store
-      _store.list.splice(action.index, 1);
-      TodoStore.emit(CHANGE_EVENT);
-      break;
+  case TodoConstants.GET_RANDOM_RESPONSE:
 
-    case AppConstants.GET_RANDOM_RESPONSE:
+    // Construct the new todo string
+    const firstName = action.response.results[0].user.name.first;
+    const city = action.response.results[0].user.location.city;
+    const newTodo = `Call ${firstName} about real estate in ${city}`;
 
-      // Construct the new todo string
-      var newTodo = 'Call '
-        + action.response.results[0].user.name.first
-        + ' about real estate in '
-        + action.response.results[0].user.location.city;
+    // Add the new todo to the list
+    _store.list.push(newTodo);
+    TodoStore.emit(CHANGE_EVENT);
+    break;
 
-      // Add the new todo to the list
-      _store.list.push(newTodo);
-      TodoStore.emit(CHANGE_EVENT);
-      break;
-
-    default:
-      return true;
+  default:
+    return true;
   }
 });
 
-module.exports = TodoStore;
+export default TodoStore;
 

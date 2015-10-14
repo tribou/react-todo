@@ -1,22 +1,25 @@
 // Todo app dispatcher with actions responding to both
 // view and server actions
+import { Dispatcher } from 'flux';
 
-var Dispatcher = require('flux').Dispatcher;
-var AppDispatcher = new Dispatcher();
+class DispatcherClass extends Dispatcher {
 
-AppDispatcher.handleViewAction = function(action) {
-  this.dispatch({
-    source: 'VIEW_ACTION',
-    action: action
-  });
+  handleViewAction(action) {
+    this.dispatch({
+      source: 'VIEW_ACTION',
+      action: action,
+    });
+  }
+
+  handleServerAction(action) {
+    this.dispatch({
+      source: 'SERVER_ACTION',
+      action: action,
+    });
+  }
 }
 
-AppDispatcher.handleServerAction = function(action) {
-  this.dispatch({
-    source: 'SERVER_ACTION',
-    action: action
-  });
-}
+const AppDispatcher = new DispatcherClass();
 
-module.exports = AppDispatcher;
+export default AppDispatcher;
 

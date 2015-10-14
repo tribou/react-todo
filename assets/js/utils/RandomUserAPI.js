@@ -1,17 +1,14 @@
 // Random User API logic
-var TodoServerActions = require('../actions/TodoServerActions');
-var request = require('superagent');
+import { receiveRandom } from '../actions/TodoServerActions';
+import request from 'superagent';
 
-module.exports = {
+export function getRandomApi() {
+  request.get('http://api.randomuser.me/')
+    .set('Accept', 'application/json')
+    .end((err, response) => {
+      if (err) return console.error(err);
 
-  get: function() {
-    request.get('http://api.randomuser.me/')
-      .set('Accept', 'application/json')
-      .end(function(err, response) {
-        if (err) return console.error(err);
-
-        TodoServerActions.receiveRandom(response.body);
-      });
-  }
-};
+      receiveRandom(response.body);
+    });
+}
 

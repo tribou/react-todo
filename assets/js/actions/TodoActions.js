@@ -1,37 +1,34 @@
 // Todo actions
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var TodoConstants = require('../constants/TodoConstants');
-var RandomUserAPI = require('../utils/RandomUserAPI');
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import { TodoConstants } from '../constants/TodoConstants';
+import { getRandomApi } from '../utils/RandomUserAPI';
 
-module.exports = {
 
-  addItem: function() {
-    AppDispatcher.handleViewAction({
-      actionType: TodoConstants.NEW_ITEM
-    });
-  },
+export function addItem() {
+  AppDispatcher.handleViewAction({
+    actionType: TodoConstants.NEW_ITEM,
+  });
+}
 
-  saveItem: function(text) {
-    AppDispatcher.handleViewAction({
-      actionType: TodoConstants.SAVE_ITEM,
-      text: text
-    });
-  },
+export function saveItem(text) {
+  AppDispatcher.handleViewAction({
+    actionType: TodoConstants.SAVE_ITEM,
+    text: text,
+  });
+}
 
-  removeItem: function(index) {
-    AppDispatcher.handleViewAction({
-      actionType: TodoConstants.REMOVE_ITEM,
-      index: index
-    });
-  },
+export function removeItem(index) {
+  AppDispatcher.handleViewAction({
+    actionType: TodoConstants.REMOVE_ITEM,
+    index: index,
+  });
+}
 
-  getRandom: function() {
-    AppDispatcher.handleViewAction({
-      actionType: TodoConstants.GET_RANDOM
-    });
+export function getRandom() {
+  AppDispatcher.handleViewAction({
+    actionType: TodoConstants.GET_RANDOM,
+  });
 
-    RandomUserAPI.get();
-  }
-
-};
+  getRandomApi();
+}
 
