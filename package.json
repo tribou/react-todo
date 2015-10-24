@@ -4,13 +4,14 @@
   "description": "Another basic todo app in React and Flux",
   "main": "server.js",
   "dependencies": {
+    "babel": "^5.8.29",
     "dateformat": "^1.0.11",
     "flux": "^2.0.3",
-    "hapi": "^9.3.1",
-    "hapi-react-views": "^3.0.1",
+    "hapi": "^11.0.2",
+    "hapi-react-views": "^4.0.0",
     "inert": "^3.0.1",
-    "object-assign": "^3.0.0",
-    "react": "^0.13.3",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "superagent": "^1.2.0",
     "vision": "^3.0.0"
   },

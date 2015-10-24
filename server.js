@@ -1,8 +1,5 @@
-// Bundle the client assets with Webpack
-//var StartWebpack = require('./webpack');
-//StartWebpack();
-
 // Create a basic Hapi.js server
+require('babel/register')({});
 var Hapi = require('hapi');
 var dateFormat = require('dateformat');
 var format = "dd mmm HH:MM:ss";
