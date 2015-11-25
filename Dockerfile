@@ -1,4 +1,4 @@
-FROM node:0.12
+FROM node:4.2
 MAINTAINER tribou
 
 # Prepare app directory
