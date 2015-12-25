@@ -4,16 +4,18 @@
   "description": "Another basic todo app in React and Flux",
   "main": "server.js",
   "dependencies": {
-    "babel": "^5.8.29",
-    "dateformat": "^1.0.11",
-    "flux": "^2.0.3",
-    "hapi": "^11.0.2",
-    "hapi-react-views": "^4.0.0",
-    "inert": "^3.0.1",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
-    "superagent": "^1.2.0",
-    "vision": "^3.0.0"
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "dateformat": "^1.0.12",
+    "flux": "^2.1.1",
+    "hapi": "^11.1.3",
+    "hapi-react-views": "^5.0.1",
+    "inert": "^3.2.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "superagent": "^1.6.1",
+    "vision": "^4.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,15 +35,15 @@
   },
   "homepage": "https://github.com/tribou/react-todo#readme",
   "devDependencies": {
-    "babel-eslint": "^4.1.3",
-    "babel-loader": "^5.3.2",
-    "browser-sync-webpack-plugin": "^1.0.0",
-    "eslint": "^1.6.0",
-    "eslint-config-airbnb": "^0.1.0",
-    "eslint-loader": "^1.1.0",
-    "eslint-plugin-react": "^3.5.1",
-    "node-libs-browser": "^0.5.2",
-    "nodemon": "^1.3.7",
-    "webpack": "^1.10.5"
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.0",
+    "browser-sync": "^2.10.1",
+    "browser-sync-webpack-plugin": "^1.0.1",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.1.1",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.13.0",
+    "webpack": "^1.12.9"
   }
 }

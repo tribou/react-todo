@@ -1,5 +1,7 @@
 // Create a basic Hapi.js server
-require('babel/register')({});
+require('babel-register')({
+  presets: ['es2015', 'react'],
+});
 var Hapi = require('hapi');
 var dateFormat = require('dateformat');
 var format = "dd mmm HH:MM:ss";
