@@ -3,7 +3,7 @@ import { receiveRandom } from '../actions/TodoServerActions';
 import request from 'superagent';
 
 export function getRandomApi() {
-  request.get('http://api.randomuser.me/')
+  request.get('https://api.randomuser.me/')
     .set('Accept', 'application/json')
     .end((err, response) => {
       if (err) return console.error(err);
