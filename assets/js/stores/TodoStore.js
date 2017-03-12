@@ -75,8 +75,8 @@ AppDispatcher.register((payload) => {
   case TodoConstants.GET_RANDOM_RESPONSE:
 
     // Construct the new todo string
-    const firstName = action.response.results[0].user.name.first;
-    const city = action.response.results[0].user.location.city;
+    const firstName = action.response.results[0].name.first;
+    const city = action.response.results[0].location.city;
     const newTodo = `Call ${firstName} about real estate in ${city}`;
 
     // Add the new todo to the list
