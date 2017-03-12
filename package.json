@@ -1,6 +1,6 @@
 {
   "name": "react-todo",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Another basic todo app in React and Flux",
   "main": "server.js",
   "dependencies": {
